@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { ContactHero } from "@/components/contact/contact-hero";
 import { ContactForm } from "@/components/contact/contact-form";
 import { OfficeMap } from "@/components/contact/office-map";

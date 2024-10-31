@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { ImpactHero } from "@/components/impact/impact-hero";
 import { ImpactGallery } from "@/components/impact/impact-gallery";
 import { VideoTestimonials } from "@/components/impact/video-testimonials";

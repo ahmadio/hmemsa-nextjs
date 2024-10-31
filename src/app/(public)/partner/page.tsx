@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { PartnerForm } from "@/components/partner/partner-form";
 import { PartnerBenefits } from "@/components/partner/partner-benefits";
 import { PageHeader } from "@/components/page-header";

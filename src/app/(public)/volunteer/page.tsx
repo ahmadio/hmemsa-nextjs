@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { VolunteerForm } from "@/components/volunteer/volunteer-form";
 import { PageHeader } from "@/components/page-header";
 
