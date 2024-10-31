@@ -32,7 +32,7 @@ export async function generateMetadata() {
     description: settings?.defaultSeo?.description || defaultDesc,
     keywords: settings?.defaultSeo?.keywords,
     metadataBase: new URL(
-      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+      process.env.VERCEL_PROJECT_PRODUCTION_URL || "http://localhost:3000"
     ),
     openGraph: settings?.defaultSeo?.ogImage?.image?.asset
       ? {

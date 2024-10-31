@@ -40,8 +40,8 @@ export async function POST(request: Request) {
         project: project || "general",
         message: message || "",
       },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/donate/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/donate/cancel`,
+      success_url: `${process.env.VERCEL_PROJECT_PRODUCTION_URL}/donate/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.VERCEL_PROJECT_PRODUCTION_URL}/donate/cancel`,
     } as const;
 
     // // Add submit_type only for one-time payments
