@@ -1,79 +1,59 @@
-import { redirect } from "next/navigation";
-import { stripe } from "@/lib/utils/stripe-server";
-import { CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Home, FileText } from "lucide-react";
 
-interface Props {
-  searchParams: Promise<{ session_id?: string }>;
-}
-
-async function getSessionDetails(sessionId: string) {
-  try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ["line_items", "payment_intent"],
-    });
-    return session;
-  } catch (error) {
-    console.error("Error retrieving session:", error);
-    return null;
-  }
-}
-
-export default async function DonationSuccessPage({ searchParams }: Props) {
-  const { session_id: sessionId } = await searchParams;
-
-  if (!sessionId) {
-    redirect("/");
-  }
-
-  const session = await getSessionDetails(sessionId);
-
-  if (!session) {
-    redirect("/");
-  }
-
-  const amount = session.amount_total ? session.amount_total / 100 : 0;
-  const currency = session.currency?.toUpperCase() || "USD";
-  const isRecurring = session.mode === "subscription";
-  const project = session.metadata?.project || "General Fund";
+export default async function SuccessPage() {
+  // Get the origin for dynamic URL construction
+  const headersList = await headers();
+  const domain = headersList.get("host") || "";
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+  const origin = `${protocol}://${domain}`;
 
   return (
-    <main className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="max-w-md w-full mx-auto space-y-8 text-center">
-        <div className="space-y-4">
-          <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto" />
-          <h1 className="text-3xl font-bold tracking-tight">Thank You!</h1>
-          <p className="text-muted-foreground">
-            Your {isRecurring ? "monthly" : ""} donation of{" "}
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: currency,
-            }).format(amount)}{" "}
-            to {project} has been processed successfully.
-          </p>
-          {isRecurring && (
-            <p className="text-sm text-muted-foreground">
-              You will receive monthly donation receipts via email.
+    <div className="min-h-[80vh] flex items-center justify-center bg-background">
+      <div className="container px-4 md:px-6">
+        <div className="flex flex-col items-center space-y-4 text-center">
+          <div className="space-y-6">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
+              Thank You for Your Donation!
+            </h1>
+            <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+              Your generous contribution has been received and will make a real
+              difference. We&apos;ve sent a confirmation email with the details
+              of your donation.
             </p>
-          )}
-        </div>
+          </div>
 
-        <div className="space-y-4">
-          {session.customer_email && (
-            <p className="text-sm text-muted-foreground">
-              A receipt has been sent to {session.customer_email}
-            </p>
-          )}
-
-          <div className="space-y-2">
-            <Button asChild className="w-full">
-              <Link href="/">Return Home</Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 pt-8">
+            <Button asChild variant="default" size="lg">
+              <Link href={new URL("/", origin).toString()}>
+                <Home className="mr-2 h-5 w-5" />
+                Back to Home
+              </Link>
             </Button>
-            {/* Optional: Add more actions like "View Impact" or "Share" */}
+            <Button asChild variant="outline" size="lg">
+              <Link href={new URL("/dashboard", origin).toString()}>
+                <FileText className="mr-2 h-5 w-5" />
+                View Receipt
+              </Link>
+            </Button>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-muted-foreground">
+              Need help? Please{" "}
+              <Link
+                href={new URL("/contact", origin).toString()}
+                className="text-primary hover:underline"
+              >
+                contact our support team
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
