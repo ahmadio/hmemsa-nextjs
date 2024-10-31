@@ -19,21 +19,36 @@ const SITE_SETTINGS_QUERY = defineQuery(
 );
 
 export async function generateMetadata() {
-  // const settings = await getSiteSettings();
-
   const settings = await client.fetch(SITE_SETTINGS_QUERY, {}, {});
 
   const defaultTitle = "Hmemsa - Empowering Moroccan Children";
   const defaultDesc =
     "Dedicated to improving education and healthcare for underprivileged Moroccan children.";
 
+  // Safely determine the base URL
+  let baseUrl: string;
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    baseUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  } else if (process.env.VERCEL_URL) {
+    baseUrl = `https://${process.env.VERCEL_URL}`;
+  } else {
+    baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  }
+
+  // Validate URL format
+  let metadataBase: URL;
+  try {
+    metadataBase = new URL(baseUrl);
+  } catch (error) {
+    console.warn("Invalid base URL, falling back to localhost:", error);
+    metadataBase = new URL("http://localhost:3000");
+  }
+
   return {
     title: settings?.defaultSeo?.title || defaultTitle,
     description: settings?.defaultSeo?.description || defaultDesc,
     keywords: settings?.defaultSeo?.keywords,
-    metadataBase: new URL(
-      process.env.VERCEL_PROJECT_PRODUCTION_URL || "http://localhost:3000"
-    ),
+    metadataBase,
     openGraph: settings?.defaultSeo?.ogImage?.image?.asset
       ? {
           images: [
