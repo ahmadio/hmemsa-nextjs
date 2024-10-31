@@ -77,3 +77,28 @@
 .content-wrapper {
   @apply max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-fade-in-delay-200 {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 0.2s forwards;
+}
+
+.animate-fade-in-delay-400 {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 0.4s forwards;
+}
