@@ -74,7 +74,7 @@ export async function generateMetadata() {
   };
 }
 
-export default async function PublicLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
