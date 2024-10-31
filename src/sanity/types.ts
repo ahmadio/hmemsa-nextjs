@@ -105,7 +105,7 @@ export type SiteSettings = {
 
 export type Section = {
   _type: "section";
-  type?: "content" | "stats" | "initiative" | "cta" | "media" | "embed";
+  type?: "content" | "stats" | "initiative" | "cta" | "media" | "gallery" | "embed";
   title?: string;
   subtitle?: string;
   content?: Array<{
@@ -190,6 +190,7 @@ export type Section = {
     };
   };
   media?: Media;
+  gallery?: Gallery;
   embed?: {
     url?: string;
     caption?: string;
@@ -328,6 +329,18 @@ export type Page = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "hero";
   };
+  gallery?: Gallery;
+  coverImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   sections?: Array<{
     _key: string;
   } & Section>;
@@ -363,23 +376,41 @@ export type Project = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  shortDescription?: string;
+  coverImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   initiative?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "initiative";
   };
-  status?: "planning" | "inProgress" | "completed";
+  status?: "planning" | "inProgress" | "continues" | "completed";
   location?: {
     city?: string;
     region?: string;
   };
+  gallery?: Gallery;
   content?: RichText;
-  impact?: Array<{
-    metric?: string;
-    value?: string;
+};
+
+export type Gallery = {
+  _type: "gallery";
+  items?: Array<{
     _key: string;
-  }>;
+  } & Media>;
+  caption?: string;
+  layout?: "grid" | "carousel" | "masonry";
+  columns?: 2 | 3 | 4;
 };
 
 export type Hero = {
@@ -653,9 +684,9 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Stat | SiteSettings | Section | RichText | Navigation | Code | Button | Link | Page | Initiative | Project | Hero | Media | Seo | BlockContent | Category | Post | Author | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Stat | SiteSettings | Section | RichText | Navigation | Code | Button | Link | Page | Initiative | Project | Gallery | Hero | Media | Seo | BlockContent | Category | Post | Author | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ../sb1-jlfsdy/app/layout.tsx
+// Source: ../hmemsa-nextjs/src/app/layout.tsx
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_type == "siteSettings"][0]
 export type SITE_SETTINGS_QUERYResult = {
@@ -673,28 +704,213 @@ export type SITE_SETTINGS_QUERYResult = {
     _key: string;
   } & Link>;
 } | null;
-// Variable: SITE_SETTINGS_QUERY2
-// Query: *[_type == "siteSettings"][0]
-export type SITE_SETTINGS_QUERY2Result = {
+
+// Source: ../hmemsa-nextjs/src/sanity/queries.ts
+// Variable: siteSettingsQuery
+// Query: *[_type == "siteSettings"][0]{  _id,  _type,  _createdAt,  _updatedAt,  _rev,  siteName,  logo {    _type,    type,    image {      _type,      asset->,      alt,      caption    }  },  defaultSeo {    _type,    title,    description,    keywords,    ogImage {      type,      image {        _type,        asset->,        alt      }    },    noIndex,    canonicalUrl  },  mainNav {    _type,    items[] {      _key,      _type,      title,      type,      internalLink->,      externalLink,      icon,      isActive,      dropdownItems[] {        _key,        _type,        text,        type,        internalLink->,        externalLink,        icon,        isActive      }    }  },  footerNav {    _type,    items[] {      _key,      _type,      title,      type,      internalLink->,      externalLink,      icon,      isActive,      dropdownItems[] {        _key,        _type,        text,        type,        internalLink->,        externalLink,        icon,        isActive      }    }  },  social[] {    _key,    _type,    text,    type,    internalLink->,    externalLink,    icon,    isActive  }}
+export type SiteSettingsQueryResult = {
   _id: string;
   _type: "siteSettings";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  siteName?: string;
-  logo?: Media;
-  defaultSeo?: Seo;
-  mainNav?: Navigation;
-  footerNav?: Navigation;
-  social?: Array<{
+  siteName: string | null;
+  logo: {
+    _type: "media";
+    type: "image" | "video" | null;
+    image: {
+      _type: "image";
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      alt: string | null;
+      caption: string | null;
+    } | null;
+  } | null;
+  defaultSeo: {
+    _type: "seo";
+    title: string | null;
+    description: string | null;
+    keywords: Array<string> | null;
+    ogImage: {
+      type: "image" | "video" | null;
+      image: {
+        _type: "image";
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        alt: string | null;
+      } | null;
+    } | null;
+    noIndex: boolean | null;
+    canonicalUrl: string | null;
+  } | null;
+  mainNav: {
+    _type: "navigation";
+    items: Array<{
+      _key: string;
+      _type: "navItem";
+      title: null;
+      type: null;
+      internalLink: null;
+      externalLink: null;
+      icon: null;
+      isActive: null;
+      dropdownItems: null;
+    }> | null;
+  } | null;
+  footerNav: {
+    _type: "navigation";
+    items: Array<{
+      _key: string;
+      _type: "navItem";
+      title: null;
+      type: null;
+      internalLink: null;
+      externalLink: null;
+      icon: null;
+      isActive: null;
+      dropdownItems: null;
+    }> | null;
+  } | null;
+  social: Array<{
     _key: string;
-  } & Link>;
+    _type: "link";
+    text: string | null;
+    type: "dropdown" | "external" | "internal" | "path" | null;
+    internalLink: {
+      _id: string;
+      _type: "initiative";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      icon?: string;
+      shortDescription?: string;
+      fullDescription?: RichText;
+      coverImage?: Media;
+      projects?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "project";
+      }>;
+      isActive?: boolean;
+    } | {
+      _id: string;
+      _type: "page";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title?: string;
+      slug?: Slug;
+      seo?: Seo;
+      hero?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "hero";
+      };
+      gallery?: Gallery;
+      coverImage?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      sections?: Array<{
+        _key: string;
+      } & Section>;
+    } | {
+      _id: string;
+      _type: "project";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      shortDescription?: string;
+      coverImage?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      initiative?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "initiative";
+      };
+      status?: "completed" | "continues" | "inProgress" | "planning";
+      location?: {
+        city?: string;
+        region?: string;
+      };
+      gallery?: Gallery;
+      content?: RichText;
+    } | null;
+    externalLink: string | null;
+    icon: string | null;
+    isActive: boolean | null;
+  }> | null;
 } | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n    *[_type == \"siteSettings\"][0]\n    ": SITE_SETTINGS_QUERYResult | SITE_SETTINGS_QUERY2Result;
+    "\n  *[_type == \"siteSettings\"][0]\n  ": SITE_SETTINGS_QUERYResult;
+    "*[_type == \"siteSettings\"][0]{\n  _id,\n  _type,\n  _createdAt,\n  _updatedAt,\n  _rev,\n  siteName,\n  logo {\n    _type,\n    type,\n    image {\n      _type,\n      asset->,\n      alt,\n      caption\n    }\n  },\n  defaultSeo {\n    _type,\n    title,\n    description,\n    keywords,\n    ogImage {\n      type,\n      image {\n        _type,\n        asset->,\n        alt\n      }\n    },\n    noIndex,\n    canonicalUrl\n  },\n  mainNav {\n    _type,\n    items[] {\n      _key,\n      _type,\n      title,\n      type,\n      internalLink->,\n      externalLink,\n      icon,\n      isActive,\n      dropdownItems[] {\n        _key,\n        _type,\n        text,\n        type,\n        internalLink->,\n        externalLink,\n        icon,\n        isActive\n      }\n    }\n  },\n  footerNav {\n    _type,\n    items[] {\n      _key,\n      _type,\n      title,\n      type,\n      internalLink->,\n      externalLink,\n      icon,\n      isActive,\n      dropdownItems[] {\n        _key,\n        _type,\n        text,\n        type,\n        internalLink->,\n        externalLink,\n        icon,\n        isActive\n      }\n    }\n  },\n  social[] {\n    _key,\n    _type,\n    text,\n    type,\n    internalLink->,\n    externalLink,\n    icon,\n    isActive\n  }\n}": SiteSettingsQueryResult;
   }
 }

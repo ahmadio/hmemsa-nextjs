@@ -8,9 +8,11 @@ import { cn } from "@/lib/utils";
 interface NavLinkProps {
   href: string;
   children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
 }
 
-export function NavLink({ href, children }: NavLinkProps) {
+export function NavLink({ href, children, className, onClick }: NavLinkProps) {
   const pathname = usePathname();
 
   return (
@@ -18,8 +20,10 @@ export function NavLink({ href, children }: NavLinkProps) {
       href={href}
       className={cn(
         "text-sm font-medium transition-colors hover:text-primary",
-        pathname === href ? "text-primary" : "text-muted-foreground"
+        pathname === href ? "text-primary" : "text-muted-foreground",
+        className
       )}
+      onClick={onClick}
     >
       {children}
     </Link>

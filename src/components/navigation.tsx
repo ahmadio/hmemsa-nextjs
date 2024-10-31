@@ -1,4 +1,4 @@
-// components/navigation.tsx
+// components/navigation/navigation.tsx
 import Link from "next/link";
 import { Link as LinkItem } from "@/sanity/types";
 import Image from "next/image";
@@ -6,6 +6,7 @@ import type { SITE_SETTINGS_QUERYResult } from "@/sanity/types";
 import { urlForImage } from "@/sanity/helpers";
 import { NavLink } from "@/components/nav-link";
 import { DonateButton } from "@/components/donate-button";
+import { MobileMenu } from "@/components/mobile-menu";
 
 interface NavigationProps {
   settings: SITE_SETTINGS_QUERYResult;
@@ -40,7 +41,6 @@ export function Navigation({ settings }: NavigationProps) {
   // Use Sanity navigation items if available, otherwise use default
   const navigationItems =
     settings?.mainNav?.items?.map((item) => {
-      // Ensure we have a valid link object
       if (!item.link) {
         return { name: "undefined", href: "#" };
       }
@@ -55,7 +55,8 @@ export function Navigation({ settings }: NavigationProps) {
     <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b">
       <nav className="mx-auto max-w-[1440px] h-16 px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-6 md:gap-10">
+          {/* Logo Section */}
+          <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               {settings?.logo?.image?.asset ? (
                 <Image
@@ -71,17 +72,24 @@ export function Navigation({ settings }: NavigationProps) {
                 </span>
               )}
             </Link>
-            <div className="hidden md:flex gap-6">
-              {navigationItems.map((item) => (
-                <NavLink key={item.href} href={item.href}>
-                  {item.name}
-                </NavLink>
-              ))}
-            </div>
           </div>
-          <div className="flex items-center gap-4">
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex flex-1 items-center justify-center space-x-6">
+            {navigationItems.map((item) => (
+              <NavLink key={item.href} href={item.href}>
+                {item.name}
+              </NavLink>
+            ))}
+          </div>
+
+          {/* Desktop Donate Button */}
+          <div className="hidden md:flex items-center">
             <DonateButton />
           </div>
+
+          {/* Mobile Menu */}
+          <MobileMenu navigationItems={navigationItems} />
         </div>
       </nav>
     </header>
