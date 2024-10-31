@@ -31,6 +31,15 @@ export async function POST(request: Request) {
       ? `Donation for ${project}`
       : "General Donation";
 
+    // Safely determine the base URL
+    let baseUrl: string;
+    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+      baseUrl = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+    } else if (process.env.VERCEL_URL) {
+      baseUrl = `https://${process.env.VERCEL_URL}`;
+    } else {
+      baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    }
     // Base checkout session configuration
     const baseSessionConfig = {
       mode: frequency === DONATION_TYPE.RECURRING ? "subscription" : "payment",
@@ -40,8 +49,8 @@ export async function POST(request: Request) {
         project: project || "general",
         message: message || "",
       },
-      success_url: `${process.env.VERCEL_PROJECT_PRODUCTION_URL}/donate/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.VERCEL_PROJECT_PRODUCTION_URL}/donate/cancel`,
+      success_url: `${baseUrl}/donate/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/donate/cancel`,
     } as const;
 
     // // Add submit_type only for one-time payments
