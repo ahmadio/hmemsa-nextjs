@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "clean": "rm -rf node_modules && rm -rf .next",
-    "clean-install": "npm run clean && npm install",
-    "dev": "pnpm run dev",
-    "build": "pnpm run build",
-    "start": "pnpm run start",
-    "lint": "pnpm run lint"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
