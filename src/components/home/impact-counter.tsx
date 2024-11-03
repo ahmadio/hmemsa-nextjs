@@ -6,28 +6,28 @@ import { Users, GraduationCap, HeartPulse, School } from "lucide-react";
 
 const stats = [
   {
-    name: "Children Helped",
+    name: "Services provided",
     value: 5000,
     icon: Users,
     suffix: "+",
   },
   {
     name: "Education Programs",
-    value: 25,
+    value: 45,
     icon: GraduationCap,
     suffix: "",
   },
   {
-    name: "Healthcare Initiatives",
-    value: 15,
+    name: "Healthcare Missions",
+    value: 6,
     icon: HeartPulse,
     suffix: "",
   },
   {
-    name: "Schools Supported",
-    value: 30,
+    name: "PKU Beneficiaries",
+    value: 136,
     icon: School,
-    suffix: "+",
+    suffix: "",
   },
 ];
 

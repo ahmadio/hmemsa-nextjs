@@ -12,6 +12,12 @@ const socialPosts = [
       "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80",
   },
   {
+    platform: "Facebook",
+    content: "Join us for our annual fundraising gala! #HmemsaGala2024",
+    image:
+      "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80",
+  },
+  {
     platform: "Twitter",
     content:
       "Thanks to our volunteers for making today's health camp a success!",

@@ -7,24 +7,24 @@ import Image from "next/image";
 const partners = [
   {
     id: 1,
-    name: "UNICEF",
-    logo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80",
+    name: "SOS PKU",
+    logo: "https://www.pkumaroc.com/images/logos_phu_sponsors2.jpg",
   },
-  {
-    id: 2,
-    name: "WHO",
-    logo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80",
-  },
-  {
-    id: 3,
-    name: "Save the Children",
-    logo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80",
-  },
-  {
-    id: 4,
-    name: "UNESCO",
-    logo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80",
-  },
+  // {
+  //   id: 2,
+  //   name: "WHO",
+  //   logo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80",
+  // },
+  // {
+  //   id: 3,
+  //   name: "Save the Children",
+  //   logo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80",
+  // },
+  // {
+  //   id: 4,
+  //   name: "UNESCO",
+  //   logo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80",
+  // },
 ];
 
 export function PartnerLogos() {
@@ -42,12 +42,12 @@ export function PartnerLogos() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="flex items-center justify-center p-8 h-32 grayscale hover:grayscale-0 transition-all">
+              <Card className="flex items-center justify-center h-32 grayscale hover:grayscale-0 transition-all">
                 <Image
                   src={partner.logo}
                   alt={partner.name}
-                  width={0}
-                  height={0}
+                  width={100}
+                  height={100}
                   className="max-h-16 w-auto"
                 />
               </Card>

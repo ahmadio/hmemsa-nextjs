@@ -32,10 +32,10 @@ export function Navigation({ settings }: NavigationProps) {
   // Fallback navigation if no Sanity data
   const defaultNavigation = [
     { name: "Home", href: "/" },
-    { name: "Programs", href: "/programs" },
-    { name: "Impact", href: "/impact" },
+    // { name: "Programs", href: "/programs" },
+    // { name: "Impact", href: "/impact" },
     { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    // { name: "Contact", href: "/contact" },
   ];
 
   // Use Sanity navigation items if available, otherwise use default

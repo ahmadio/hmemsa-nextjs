@@ -19,21 +19,23 @@ export function Hero() {
           className="mx-auto max-w-3xl text-center"
         >
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Empowering Morocco&apos;s Future{" "}
-            <span className="text-primary">One Child</span> at a Time
+            Impacting Morocco&apos;s Future Through{" "}
+            <span className="text-primary">
+              Education, Advocacy and Resources
+            </span>
           </h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Join us in our mission to provide quality education and healthcare
-            to underprivileged children across Morocco, creating lasting
-            positive change for generations to come.
+            Join us in our mission to to contribute to the development of
+            Morocco through services and exchange of expertise between Moroccan
+            and American educators, professionals and students.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Button size="lg" onClick={onOpen}>
               Make a Difference
             </Button>
-            <Button size="lg" variant="outline" asChild>
+            {/* <Button size="lg" variant="outline" asChild>
               <Link href="/programs">Our Programs</Link>
-            </Button>
+            </Button> */}
           </div>
         </motion.div>
       </div>

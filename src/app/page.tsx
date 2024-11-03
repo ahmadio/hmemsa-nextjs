@@ -11,7 +11,7 @@ export default function Home() {
       <Hero />
       <ImpactCounter />
       <FeaturedInitiatives />
-      <NewsGrid />
+      {/* <NewsGrid /> */}
       <PartnerLogos />
       <NewsletterSignup />
     </>

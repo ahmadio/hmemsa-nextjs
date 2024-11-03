@@ -5,28 +5,59 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download, ExternalLink } from "lucide-react";
 
-const reports = [
+interface Report {
+  year: number;
+  title: string;
+  description: string;
+  // fileSize: string;
+  fileName: string;
+}
+
+const reports: Report[] = [
   {
     year: 2023,
     title: "Annual Impact Report",
     description: "A comprehensive look at our achievements and growth.",
-    fileSize: "3.2 MB",
+    // fileSize: "3.2 MB",
+    fileName: "anunual_report_2023.pdf",
   },
   {
     year: 2022,
     title: "Annual Impact Report",
     description: "Celebrating milestones and community impact.",
-    fileSize: "2.8 MB",
+    // fileSize: "2.8 MB",
+    fileName: "anunual_report_2022.pdf",
   },
   {
     year: 2021,
     title: "Annual Impact Report",
     description: "Adapting and thriving through challenges.",
-    fileSize: "2.5 MB",
+    // fileSize: "2.5 MB",
+    fileName: "anunual_report_2021.pdf",
   },
 ];
 
 export function AnnualReports() {
+  const handleDownload = (fileName: string) => {
+    // Create the full path to the file in the public folder
+    const fileUrl = `/reports/${fileName}`;
+
+    // Create a temporary anchor element
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = fileName;
+
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleView = (fileName: string) => {
+    // Open the PDF in a new tab
+    window.open(`/reports/${fileName}`, "_blank");
+  };
+
   return (
     <section className="py-16">
       <div className="container">
@@ -48,14 +79,22 @@ export function AnnualReports() {
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">
-                      {report.fileSize}
+                      {/* {report.fileSize} */}
                     </span>
                     <div className="space-x-2">
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDownload(report.fileName)}
+                      >
                         <Download className="h-4 w-4 mr-2" />
                         Download
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleView(report.fileName)}
+                      >
                         <ExternalLink className="h-4 w-4 mr-2" />
                         View
                       </Button>

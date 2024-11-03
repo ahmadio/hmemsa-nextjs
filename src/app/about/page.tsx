@@ -18,12 +18,12 @@ export default function AboutPage() {
   return (
     <main>
       <AboutHero />
-      <Timeline />
-      <TeamGrid />
+      {/* <Timeline /> */}
+      {/* <TeamGrid /> */}
       <AnnualReports />
-      <FinancialCharts />
-      <BoardMembers />
-      <Certifications />
+      {/* <FinancialCharts /> */}
+      {/* <BoardMembers /> */}
+      {/* <Certifications /> */}
     </main>
   );
 }

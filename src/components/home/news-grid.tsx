@@ -9,16 +9,6 @@ import Image from "next/image";
 
 const news = [
   {
-    id: 1,
-    title: "New Learning Center Opens in Casablanca",
-    excerpt:
-      "Expanding our reach with state-of-the-art facilities to serve more children in need.",
-    date: "March 15, 2024",
-    image:
-      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80",
-    category: "Education",
-  },
-  {
     id: 2,
     title: "Healthcare Initiative Reaches 1,000 Children",
     excerpt:
@@ -28,16 +18,26 @@ const news = [
       "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&q=80",
     category: "Healthcare",
   },
-  {
-    id: 3,
-    title: "Annual Fundraising Gala Announced",
-    excerpt:
-      "Join us for an evening of inspiration and support for Morocco's children.",
-    date: "March 5, 2024",
-    image:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80",
-    category: "Events",
-  },
+  // {
+  //   id: 1,
+  //   title: "New Learning Center Opens in Casablanca",
+  //   excerpt:
+  //     "Expanding our reach with state-of-the-art facilities to serve more children in need.",
+  //   date: "March 15, 2024",
+  //   image:
+  //     "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80",
+  //   category: "Education",
+  // },
+  // {
+  //   id: 3,
+  //   title: "Annual Fundraising Gala Announced",
+  //   excerpt:
+  //     "Join us for an evening of inspiration and support for Morocco's children.",
+  //   date: "March 5, 2024",
+  //   image:
+  //     "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80",
+  //   category: "Events",
+  // },
 ];
 
 export function NewsGrid() {

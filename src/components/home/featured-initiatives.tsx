@@ -12,21 +12,21 @@ import { Book, HeartPulse, Utensils } from "lucide-react";
 
 const initiatives = [
   {
-    title: "Education First",
+    title: "PKU",
     description:
-      "Providing quality education through modern learning facilities and dedicated teachers.",
-    icon: Book,
-  },
-  {
-    title: "Healthcare Access",
-    description:
-      "Ensuring children have access to essential medical care and preventive services.",
+      "HMEMSA facilitates the exchange of expertise between Moroccan and US doctors. Advocate and support PKU patients.",
     icon: HeartPulse,
   },
   {
-    title: "Nutrition Program",
+    title: "Education",
     description:
-      "Delivering nutritious meals to support healthy growth and development.",
+      " HMEMSA sponsors and organizes educational projects for the benefit of Moroccan professionals and students",
+    icon: Book,
+  },
+  {
+    title: "Enrichment",
+    description:
+      "HMEMSA encourages and aids in the educational sponsorship and enrichment of orphans living in orphanages throughout Morocco",
     icon: Utensils,
   },
 ];

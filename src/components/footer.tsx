@@ -22,25 +22,25 @@ export function Footer({ settings }: FooterProps) {
                   Our Mission
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/team"
                   className="text-muted-foreground hover:text-primary"
                 >
                   Team
                 </Link>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link
                   href="/impact"
                   className="text-muted-foreground hover:text-primary"
                 >
                   Impact
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
-          <div>
+          {/* <div>
             <h3 className="text-lg font-semibold mb-4">Programs</h3>
             <ul className="space-y-2">
               <li>
@@ -97,17 +97,26 @@ export function Footer({ settings }: FooterProps) {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Connect</h3>
             <div className="flex space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-primary">
+              <a
+                href="https://www.facebook.com/HMEMSA"
+                className="text-muted-foreground hover:text-primary"
+              >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary">
+              <a
+                href="https://x.com/HMEMSA"
+                className="text-muted-foreground hover:text-primary"
+              >
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary">
+              <a
+                href="https://www.instagram.com/hmemsa/"
+                className="text-muted-foreground hover:text-primary"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
