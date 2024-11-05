@@ -85,7 +85,7 @@ export function Navigation({ settings }: NavigationProps) {
 
           {/* Desktop Donate Button */}
           <div className="hidden md:flex items-center">
-            <DonateButton />
+            {/* <DonateButton /> */}
           </div>
 
           {/* Mobile Menu */}
