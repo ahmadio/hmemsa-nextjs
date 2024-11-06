@@ -13,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -22,10 +21,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { CreditCard, Landmark } from "lucide-react";
-import { DONATION_TYPE } from "@/lib/utils/stripe-client";
+import { Loader2 } from "lucide-react";
 
-// Mock data - will be replaced with Sanity data later
 const MOCK_PROJECTS = [
   {
     id: "1",
@@ -104,7 +101,6 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
     setIsSubmitting(true);
 
     try {
-      // Create Stripe Checkout Session
       const response = await fetch("/api/stripe/create-checkout-session", {
         method: "POST",
         headers: {
@@ -112,7 +108,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
         },
         body: JSON.stringify({
           amount: parseFloat(values.amount),
-          currency: "USD", // You might want to make this configurable
+          currency: "USD",
           frequency: values.frequency,
           project: MOCK_PROJECTS.find((p) => p.id === values.project)?.name,
           name: values.name,
@@ -127,11 +123,11 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
         throw new Error("Failed to create checkout session");
       }
 
-      // Open Stripe Checkout in a new tab
-      window.open(url, "_blank");
-
-      // Close the donation modal
+      // Close the modal first
       onClose();
+
+      // Then redirect to Stripe Checkout in the same window
+      window.location.href = url;
     } catch (error) {
       console.error("Payment error:", error);
       setError(
@@ -141,10 +137,6 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
       setIsSubmitting(false);
     }
   }
-
-  const selectedProject = MOCK_PROJECTS.find(
-    (p) => p.id === form.watch("project")
-  );
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -345,8 +337,21 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Processing..." : "Proceed to Payment"}
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Redirecting to payment...
+                </>
+              ) : (
+                "Proceed to Payment"
+              )}
             </Button>
+
+            {isSubmitting && (
+              <p className="text-sm text-muted-foreground text-center">
+                Please wait while we redirect you to our secure payment page...
+              </p>
+            )}
           </form>
         </Form>
       </DialogContent>
