@@ -17,7 +17,7 @@ export function MobileMenu({ navigationItems }: MobileMenuProps) {
   return (
     <>
       <div className="flex items-center space-x-4 md:hidden">
-        {/* <DonateButton /> */}
+        <DonateButton />
         <Button
           variant="ghost"
           size="icon"

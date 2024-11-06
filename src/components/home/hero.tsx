@@ -30,9 +30,9 @@ export function Hero() {
             and American educators, professionals and students.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            {/* <Button size="lg" onClick={onOpen}>
+            <Button size="lg" onClick={onOpen}>
               Make a Difference
-            </Button> */}
+            </Button>
             {/* <Button size="lg" variant="outline" asChild>
               <Link href="/programs">Our Programs</Link>
             </Button> */}
